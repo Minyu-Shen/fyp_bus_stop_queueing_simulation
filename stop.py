@@ -5,10 +5,6 @@ class Stop(object):
         self._entry_queue = []
         self._buses_in_berth = [None] * self._berth_num
 
-    def reset(self):
-        self._entry_queue = []
-        self._buses_in_berth = [None] * self._berth_num
-
     def enter_bus(self, bus):
         self._entry_queue.append(bus)
 
@@ -18,7 +14,7 @@ class Stop(object):
         self._finishing(curr_time, delta_t)
 
     def _boarding(self, delta_t):
-        for berth, bus in enumerate(self._buses_in_berth):
+        for _, bus in enumerate(self._buses_in_berth):
             if bus is None:
                 continue
             bus.rest_service_time_this_stop -= delta_t

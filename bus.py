@@ -1,6 +1,5 @@
 from collections import defaultdict
 import numpy as np
-import torch
 
 
 class Travel_Record(object):
@@ -23,7 +22,7 @@ class Bus(object):
         self.mean_service_time = mean_service_time
         self.cv_service_time = cv_service_time
 
-        self.rest_service_time_this_stop = self._generate_random_service_time()
+        self.rest_service_time_this_stop = self._generate_random_service_time() # remaining service time for a bus
 
         # for stats
         self.record = Travel_Record()

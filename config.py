@@ -4,8 +4,8 @@ from numpy.lib.utils import info
 
 class Sim_Config(object):
     def __init__(self):
-        self.delta_t = 1.0
-        self.sim_duration = int(3600 * 150)
+        self.delta_t = 1.0 # second
+        self.sim_duration = int(3600 * 150) # 150 hours
         self.berth_num = 2
         self.ln_arrival_dict, self.ln_service_dict = self._generate_line_info()
 

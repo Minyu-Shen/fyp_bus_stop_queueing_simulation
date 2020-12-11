@@ -30,7 +30,6 @@ class Simulator(object):
     def move_one_step(self):
         dspt_buses = self.generator.dispatch(self._curr_time)
 
-        # doing nothing ...
         for dspt_bus in dspt_buses:
             self.stop.enter_bus(dspt_bus)
             self.ln_total_bus_dict[dspt_bus.ln_id][dspt_bus.bus_id] = dspt_bus
