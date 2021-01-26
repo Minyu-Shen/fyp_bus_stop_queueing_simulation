@@ -5,6 +5,12 @@
 1. Click the green "Code" button and download the codes as zip file.
 2. If you are familiar with the "git" tool, feel free to "git clone" it.
 
+## Updates on Jan 26, 2021
+1. This update added a boolean variable (“self.is_capacity_case") in the “config.py” to distinguish whether the simulation is for capacity or delay case. "True” means the capacity case while "False" means the delay one. If you are not interested in the capacity case, just set it to be False.
+2. In the "main.py", this update gives an example showing how to get different metrics (average bus delay or capacity) for different parameters, e.g., the coefficent of variation in service time used in the code. Other parameters like berth number and arrival rate also apply.
+
+
+
 ## Introduction
 
 This repository presents a discrete time-based simulation for emulating buses' queueing phenomenon at a single stop where the number of berths is limited. The entry of the program is located in the "main.py". (You can also start reading the code from there.)
