@@ -1,9 +1,12 @@
 class Stop(object):
-    def __init__(self, berth_num):
+    def __init__(self, berth_num, is_capacity_case):
         self._berth_num = berth_num
 
         self._entry_queue = []
         self._buses_in_berth = [None] * self._berth_num
+
+        self.is_capacity_case = is_capacity_case
+        self.num_of_buses_discharged = 0
 
     def enter_bus(self, bus):
         self._entry_queue.append(bus)
@@ -28,11 +31,14 @@ class Stop(object):
             if bus.rest_service_time_this_stop > 0.0:  # not finished
                 continue
             if self._check_out(berth) is False:  # the bus is blocked
-                bus.record.update_stats("berth_delay", delta_t)
+                # only update the delay for the delay case
+                if self.is_capacity_case is False:
+                    bus.record.update_stats("berth_delay", delta_t)
             else:  # the bus can leave
                 self._leaving_operations_for_bus(bus, berth)
 
     def _leaving_operations_for_bus(self, bus, berth):
+        self.num_of_buses_discharged = self.num_of_buses_discharged + 1
         self._buses_in_berth[berth] = None
 
     def _queueing(self, curr_time, delta_t):
@@ -44,8 +50,10 @@ class Stop(object):
             self._buses_in_berth[target_berth] = bus
             self._entry_queue.pop(0)
 
-        for _, bus in enumerate(self._entry_queue):
-            bus.record.update_stats("queue_delay", delta_t)
+        # only update the delay for the delay case
+        if self.is_capacity_case is False:
+            for _, bus in enumerate(self._entry_queue):
+                bus.record.update_stats("queue_delay", delta_t)
 
     def _check_in(self):
         target_berth = -1  # negative means no berth is available
@@ -70,3 +78,4 @@ class Stop(object):
     def reset(self):
         self._entry_queue = []
         self._buses_in_berth = [None] * self._berth_num
+        self.num_of_buses_discharged = 0

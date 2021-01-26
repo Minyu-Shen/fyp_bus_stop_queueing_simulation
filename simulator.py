@@ -15,7 +15,7 @@ class Simulator(object):
         )
 
         ### init the stop
-        self.stop = Stop(sim_config.berth_num)
+        self.stop = Stop(sim_config.berth_num, sim_config.is_capacity_case)
 
         # running properties
         self._curr_time = 0
